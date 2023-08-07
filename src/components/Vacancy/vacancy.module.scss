@@ -1,0 +1,45 @@
+@import "../../styles/mixin.scss";
+.vacancy {
+  background-color: var(--search);
+  padding: 1.5rem;
+  min-width: 100%;
+  position: relative;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  picture {
+    @include flex-center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 0.8rem;
+    position: absolute;
+    top: -25px;
+    left: 25px;
+    img {
+      object-fit: contain;
+    }
+  }
+}
+.vacancy__time,
+.vacancy__scoot {
+  color: var(--color-dark-grey);
+}
+.vacancy__time {
+  margin-top: 2rem;
+}
+.vacancy__position {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  color: var(--text);
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  &:hover {
+    opacity: 0.5;
+  }
+}
+.vacancy__location {
+  color: var(--color-violet);
+  font-weight: 600;
+  margin-top: 1.5rem;
+}

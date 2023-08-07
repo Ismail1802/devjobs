@@ -1,0 +1,32 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+@mixin button {
+  background-color: var(--color-violet);
+  outline: none;
+  border: none;
+  width: 9rem;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+@mixin main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  input {
+    background-color: var(--search);
+  }
+  @media (max-width: 575.98px) {
+    width: 90%;
+  }
+}

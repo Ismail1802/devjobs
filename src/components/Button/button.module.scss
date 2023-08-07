@@ -1,0 +1,26 @@
+@import "../../styles/mixin.scss";
+.button__search {
+  @include button;
+  transition: all 0.3s ease-in-out;
+}
+.button__load {
+  @include button;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+.button__site {
+  @include button;
+  background-color: var(--company-btn);
+  color: var(--company-text);
+  font-weight: 600;
+  margin-right: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+@media (max-width: 810px) {
+  .button__site {
+    margin: 0;
+  }
+  .button__search {
+    width: 100%;
+  }
+}

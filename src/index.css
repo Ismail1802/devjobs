@@ -1,0 +1,115 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --color-violet: #5964e0;
+  --color-light-violet: #939bf4;
+  --color-very-dark-blue: #19202d;
+  --color-midnight: #121721;
+  --color-white: #fff;
+  --color-light-grey: #f4f6f8;
+  --color-grey: #9daec2;
+  --color-dark-grey: #6e8098;
+}
+.dark-theme {
+  --bg: #121721;
+  --search: #19202d;
+  --text: white;
+  --checkbox: #313743;
+  --company-btn: #303642;
+  --company-text: white;
+  --det-bg: #19202d;
+  --shadow: box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.light-theme {
+  --bg: #f4f6f8;
+  --search: white;
+  --text: black;
+  --checkbox: #e7e8e9;
+  --company-btn: #eeeffc;
+  --company-text: #5964e0;
+  --det-bg: white;
+  --shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: "Kumbh Sans", sans-serif;
+  background-color: var(--bg);
+  transition: all 0.3s linear;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  -webkit-text-decoration-skip: ink;
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+input {
+  border: none;
+  outline: none;
+}
+a {
+  text-decoration: none;
+}
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 160px;
+  z-index: -1;
+  border-radius: 0 0 0 5rem;
+  background-image: url("/assets/desktop/bg-pattern-header.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+@media (max-width: 991.98px) {
+  .bg {
+    background-image: url("/assets/tablet/bg-pattern-header.svg");
+  }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  /* border: 1px solid green; */
+  -webkit-text-fill-color: var(--text);
+  -webkit-box-shadow: 0 0 0px 1000px var(--search) inset;
+}

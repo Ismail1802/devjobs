@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  height: 122px;
+  padding: 0 10%;
+}
+
+.header__toggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
