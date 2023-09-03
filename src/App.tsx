@@ -1,13 +1,13 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import Root from "./pages/Root";
 import ScrollToTop from "./utils/ScrollToTop/ScrollToTop";
 import { HomePage } from "./pages/Home/HomePage";
 import { DevDetailsPage } from "./pages/DevDetails/DevDetailsPage";
 import { ErrorPage } from "./pages/Error/ErrorPage";
 import { loader } from "./pages/DevDetails/DevDetailsPage";
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
-    path: "/devjobs/",
+    path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
@@ -17,7 +17,6 @@ const router = createBrowserRouter([
       },
       {
         path: "/devjobs/:devId",
-        id: "dev-detail",
         element: (
           <ScrollToTop>
             <DevDetailsPage />

@@ -15,7 +15,7 @@ const ErrorPage = () => {
       <h1 style={{ margin: "1rem", color: "white" }}>
         This vacancy does not exist
       </h1>
-      <Link to="/devjobs/">
+      <Link to="/">
         <Button text="Go back" contStyle="button__search" />
       </Link>
     </div>

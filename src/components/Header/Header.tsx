@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles["header__logo-cont"]}>
-        <Link to="/devjobs/">
+        <Link to="/">
           <picture>
             <img src="./assets/desktop/logo.svg" alt="logo" />
           </picture>
