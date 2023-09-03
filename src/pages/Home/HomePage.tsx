@@ -1,17 +1,17 @@
 import styles from "./home.module.scss";
 import data from "../../data/data.json";
-import { useState, FormEvent, useRef, useEffect, useCallback } from "react";
+import { useState, FormEvent, useRef, useEffect } from "react";
 import { Vacancy, Button, Form } from "../../components";
-
-import { stringHandler } from "../../utils";
+import { filterHelper } from "./utils.js";
 import { pageVariants } from "../../variants/index.js";
 import { motion } from "framer-motion";
+
 const HomePage = () => {
   const [limit, setLimit] = useState(9);
   const [jobs, setJobs] = useState(data);
-  const [marked, setMarked] = useState(false);
-  const searchRef = useRef<HTMLInputElement>(null);
-  const locationRef = useRef<HTMLInputElement>(null);
+  const [isFullTime, setIsFullTime] = useState(false);
+  const searchRefD = useRef<HTMLInputElement>(null);
+  const locationRefD = useRef<HTMLInputElement>(null);
   const searchRefM = useRef<HTMLInputElement>(null);
   const locationRefM = useRef<HTMLInputElement>(null);
 
@@ -20,46 +20,26 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    submitHandler();
-  }, [marked]);
+    desktopFormSubmit();
+  }, [isFullTime]);
 
-  const submitHandler = useCallback(
-    (e?: FormEvent) => {
-      e?.preventDefault();
-      if (searchRef.current?.value || locationRef.current?.value) {
-        setJobs(
-          data.filter((job) => {
-            const currentMarked = marked ? "Full Time" : job.contract;
-            return (
-              stringHandler(job.position).includes(
-                stringHandler(searchRef.current!.value)
-              ) &&
-              stringHandler(job.location).includes(
-                stringHandler(locationRef.current!.value)
-              ) &&
-              job.contract === currentMarked
-            );
-          })
-        );
-      } else {
-        setJobs(
-          data.filter((job) => {
-            const currentMarked = marked ? "Full Time" : job.contract;
-            return (
-              stringHandler(job.position).includes(
-                stringHandler(searchRefM.current!.value)
-              ) &&
-              stringHandler(job.location).includes(
-                stringHandler(locationRefM.current!.value)
-              ) &&
-              job.contract === currentMarked
-            );
-          })
-        );
-      }
-    },
-    [marked]
-  );
+  const desktopFormSubmit = (e?: FormEvent) => {
+    e?.preventDefault();
+    setJobs(
+      data.filter((job) =>
+        filterHelper(job, isFullTime, searchRefD, locationRefD)
+      )
+    );
+  };
+
+  const mobileFormSubmit = (e?: FormEvent) => {
+    e?.preventDefault();
+    setJobs(
+      data.filter((job) =>
+        filterHelper(job, isFullTime, searchRefM, locationRefM)
+      )
+    );
+  };
 
   return (
     <motion.main
@@ -72,11 +52,12 @@ const HomePage = () => {
       <Form
         searchRefM={searchRefM}
         locationRefM={locationRefM}
-        locationRef={locationRef}
-        searchRef={searchRef}
-        submitHandler={submitHandler}
-        marked={marked}
-        setMarked={setMarked}
+        locationRefD={locationRefD}
+        searchRefD={searchRefD}
+        desktopFormSubmit={desktopFormSubmit}
+        mobileFormSubmit={mobileFormSubmit}
+        isFullTime={isFullTime}
+        setIsFullTime={setIsFullTime}
       />
       <section className={styles.main__list}>
         {jobs.slice(0, limit).map((item) => {

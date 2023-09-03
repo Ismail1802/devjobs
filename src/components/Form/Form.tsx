@@ -1,28 +1,32 @@
-import { MouseEvent, useEffect, useState } from "react";
+import { FormEvent, MouseEvent, useEffect, useState } from "react";
 import styles from "./form.module.scss";
 import { Button } from "..";
 import React from "react";
+import { useIsMobileResolution } from "./useIsMobileResolution";
 interface FormProps {
-  searchRef: React.RefObject<HTMLInputElement>;
-  submitHandler: () => void;
-  locationRef: React.RefObject<HTMLInputElement>;
-  marked: boolean;
-  setMarked: React.Dispatch<React.SetStateAction<boolean>>;
+  searchRefD: React.RefObject<HTMLInputElement>;
+  locationRefD: React.RefObject<HTMLInputElement>;
+  isFullTime: boolean;
+  setIsFullTime: React.Dispatch<React.SetStateAction<boolean>>;
   locationRefM: React.RefObject<HTMLInputElement>;
   searchRefM: React.RefObject<HTMLInputElement>;
+  desktopFormSubmit: (e?: FormEvent) => void;
+  mobileFormSubmit: (e?: FormEvent) => void;
 }
 
 const Form = React.memo(
   ({
-    searchRef,
-    submitHandler,
-    locationRef,
-    marked,
-    setMarked,
+    searchRefD,
+    desktopFormSubmit,
+    locationRefD,
+    isFullTime,
+    setIsFullTime,
     searchRefM,
     locationRefM,
+    mobileFormSubmit,
   }: FormProps) => {
     const [modalOpen, setModalOpen] = useState(false);
+    const isMobile = useIsMobileResolution();
 
     useEffect(() => {
       if (modalOpen) {
@@ -33,7 +37,7 @@ const Form = React.memo(
     }, [modalOpen]);
 
     function markedHandler() {
-      setMarked(!marked);
+      setIsFullTime(!isFullTime);
     }
 
     function modalHandler() {
@@ -46,16 +50,16 @@ const Form = React.memo(
 
     return (
       <>
-        <form onSubmit={submitHandler} className={styles.form}>
+        <form onSubmit={(e) => desktopFormSubmit(e)} className={styles.form}>
           <div className={styles.form__search}>
             <label htmlFor="searchD">
               <img src="./assets/desktop/icon-search.svg" alt="icon-search" />
             </label>
             <input
-              ref={searchRef}
+              ref={searchRefD}
               id="searchD"
               placeholder={
-                window.innerWidth < 1024
+                isMobile
                   ? "Filter by title..."
                   : "Filter by title, companies, expertise"
               }
@@ -69,7 +73,7 @@ const Form = React.memo(
             />
             <input
               id="locationD"
-              ref={locationRef}
+              ref={locationRefD}
               placeholder="Filter by location.."
               type="text"
             />
@@ -77,11 +81,13 @@ const Form = React.memo(
           <div className={styles["form__btn-cont"]}>
             <div className={styles.form__full}>
               <div
-                style={{ backgroundColor: marked ? "var(--color-violet)" : "" }}
+                style={{
+                  backgroundColor: isFullTime ? "var(--color-violet)" : "",
+                }}
                 onClick={markedHandler}
               >
                 <img
-                  style={{ opacity: marked ? "1" : "0" }}
+                  style={{ opacity: isFullTime ? "1" : "0" }}
                   src="./assets/desktop/icon-check.svg"
                   alt="icon-check"
                 />
@@ -96,7 +102,7 @@ const Form = React.memo(
         </form>
 
         <form
-          onSubmit={submitHandler}
+          onSubmit={mobileFormSubmit}
           className={`${styles.form} ${styles.form__mobile}`}
         >
           <div className={styles.form__search}>
@@ -104,7 +110,7 @@ const Form = React.memo(
               ref={searchRefM}
               id="search"
               placeholder={
-                window.innerWidth < 1024
+                isMobile
                   ? "Filter by title..."
                   : "Filter by title, companies, expertise"
               }
@@ -149,12 +155,12 @@ const Form = React.memo(
                   <div
                     className={styles["form__full-mark"]}
                     style={{
-                      backgroundColor: marked ? "var(--color-violet)" : "",
+                      backgroundColor: isFullTime ? "var(--color-violet)" : "",
                     }}
                     onClick={markedHandler}
                   >
                     <img
-                      style={{ opacity: marked ? "1" : "0" }}
+                      style={{ opacity: isFullTime ? "1" : "0" }}
                       src="./assets/desktop/icon-check.svg"
                       alt="icon-check"
                     />
